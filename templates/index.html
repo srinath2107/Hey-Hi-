@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Hi !</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <div class="shell-body">
+            <aside class="sidebar">
+                <div class="panel panel-surface history-panel" aria-label="Recent chat history">
+                    <div class="panel-header">
+                        <span>Recent chats</span>
+                        <button id="viewAllBtn" class="ghost-btn" type="button">View all</button>
+                    </div>
+                    <ul class="history-li   st" id="historyList">
+                        <li class="history-item">Quarterly report assistant</li>
+                        <li class="history-item">Customer support workflow</li>
+                        <li class="history-item">PDF knowledge extraction</li>
+                    </ul>
+                </div>
+
+                <div class="panel panel-surface upload-panel">
+                    <span class="panel-title">Upload context</span>
+                    <label for="pdfUpload" class="upload-card">
+                        <span>Drag & drop PDF or click to upload</span>
+                        <small>Build instant retrieval context for your agents.</small>
+                    </label>
+                    <input type="file" id="pdfUpload" accept=".pdf" hidden>
+                    <p id="uploadStatus" class="status-text">No document attached</p>
+                </div>
+            </aside>
+
+            <main class="workspace-panel">
+                <section class="chat-section" aria-label="Active conversation">
+                    <div class="section-header">
+                        <div>
+                            <h2>Hey Hi !</h2>
+                        </div>
+                    </div>
+
+                    <div class="chat-window" id="chatBox">
+                        <article class="chat-message assistant">
+                            <div class="message-meta">
+                                <span>Assistant • Langraph</span>
+                                <span class="message-tag">History</span>
+                            </div>
+                            <div class="message-body">
+                                Hello! I’m ready to help you research files, synthesize history, or search the web.
+                            </div>
+                        </article>
+                        <article class="chat-message user">
+                            <div class="message-meta"><span>You</span></div>
+                            <div class="message-body">Show me the latest insights from the uploaded PDF.</div>
+                        </article>
+                    </div>
+
+                    <div class="prompt-panel">
+                        <label class="label" for="userInput">Prompt</label>
+                        <div class="input-row">
+                            <input type="text" id="userInput" placeholder="Ask anything, or reference uploaded documents..." autocomplete="off">
+                            <button id="sendBtn" class="primary-btn">wake me</button>
+                        </div>
+                        <div class="prompt-footer">
+                            <span class="hint-text">Try: “Summarize the most important insights from the last document.”</span>
+                            <button id="suggestedPromptsBtn" class="ghost-btn" type="button">Suggested prompts</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Move status cards below the chat/workspace to make use of right-side space -->
+                <section class="status-grid bottom-status-grid">
+                    <article class="status-card">
+                        <span class="status-chip success">Live</span>
+                        <h3>Agent uptime</h3>
+                        <p>99.97% availability across all active workflows.</p>
+                    </article>
+                    <article class="status-card">
+                        <span class="status-chip info">RAG</span>
+                        <h3>Sources connected</h3>
+                        <p>History, PDF context, and web retrieval channels active.</p>
+                    </article>
+                    <article class="status-card">
+                        <span class="status-chip warning">AI</span>
+                        <h3>Active agents</h3>
+                        <p>3 multi-agent workflows waiting for your prompt.</p>
+                    </article>
+                </section>
+            </main>
+
+            <aside class="right-panel">
+                <!-- Right panel intentionally left empty after removing agent config and metadata -->
+            </aside>
+        </div>
+    </div>
+
+    <footer class="tools-footer">
+        <div class="panel panel-surface tools-panel" aria-label="Tools and integrations">
+            <div class="panel-title">Tools & integrations</div>
+            <div class="tool-item">
+                <span>Web search</span>
+                <span class="status-label active">Online</span>
+            </div>
+            <div class="tool-item">
+                <span>PDF retrieval</span>
+                <span class="status-label active">Ready</span>
+            </div>
+            <div class="tool-item">
+                <span>Knowledge graph</span>
+                <span class="status-label offline">Sync</span>
+            </div>
+            <div class="tool-item">
+                <span>Voice input</span>
+                <button id="voiceToggleBtn" class="ghost-btn" type="button">Enable</button>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

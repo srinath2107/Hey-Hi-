@@ -1,0 +1,13 @@
+Step-by-Step Code Flow
+
+Every time you type a question into the terminal loop, the graph goes through this exact lifecycle:
+
+Step 1: InitializationThe script packs your question and the rolling history_log array into the AgentState dictionary container.The graph executes its entry point: check_history.
+
+Step 2: The History CheckThe check_chat_history function triggers.It feeds the conversation log directly to the Groq API model.Decision Route A: If the user is asking a follow-up question (e.g., "What did I just ask you?"), the LLM generates an answer, tags current_source = "history", and the graph terminates early via route_after_history.Decision Route B: If the question is brand new, the LLM answers "I DO NOT KNOW". The script clears the answer string, leaving current_source = "none", and routes directly down to the next node.
+
+Step 3: The PDF Vector Check (RAG)The graph enters the query_pdf node.Your question is mathematically compared against the local vector database (Chroma) to fetch the top 2 matching text chunks inside your PDF file.The text chunks are passed to the Groq API model along with your prompt.Decision Route A: If the answer lives inside those pages, the LLM constructs an answer using the text context, tags current_source = "pdf", and the graph terminates via route_after_pdf.Decision Route B: If the chunks don't match your query, the LLM replies "NOT IN PDF". The graph sets current_source = "none" and switches traffic over to the final fallback node.
+
+Step 4: The Live Internet FallbackThe graph enters query_web.The duckduckgo-search integration launches an active API search on the live web using your query string.The raw search summaries are packaged and sent to the Groq API model.Llama-3.3 translates the web data into a clean, comprehensive response, tags current_source = "web", and sends it straight to the END block.Step 
+
+5: Wrap-up & LoopThe terminal catches the final output dictionary, prints out the source tag along with your answer, and appends the interaction turn back to your persistent history_log so it remembers it for your next prompt.

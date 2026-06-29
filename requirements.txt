@@ -1,0 +1,8 @@
+langgraph>=1.2.6
+langchain-groq
+langchain-community
+duckduckgo-search
+pypdf
+chromadb
+python-dotenv
+sentence-transformers
