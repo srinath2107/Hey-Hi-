@@ -10,3 +10,5 @@ python-dotenv
 sentence-transformers
 langchain-huggingface
 langchain-text-splitters
+duckduckgo-search
+ddgs
