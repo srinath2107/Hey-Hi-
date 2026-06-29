@@ -8,3 +8,5 @@ pypdf
 chromadb
 python-dotenv
 sentence-transformers
+langchain-huggingface
+langchain-text-splitters
